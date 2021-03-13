@@ -35,7 +35,7 @@ def get_strains_list(page_id):
     # Gets the HTML list of strains
     strains_list_html = driver.find_element_by_xpath('/html/body/main/div/div[2]/ul').get_attribute('outerHTML')
 
-    # Parses the HTML and find their individual items
+    # Parses the HTML and find its individual items
     soup = BeautifulSoup(strains_list_html, features='html.parser')
     strains_list = soup.find_all('li')
 
@@ -46,3 +46,69 @@ def get_strains_list(page_id):
     driver.close()
 
     return strains_url
+
+
+def get_strain_data(url):
+    """Gets meta-information regarding a specific strain.
+
+    Args:
+        url (str): URL to gather the meta-information.
+
+    Returns:
+        A dictionary containing the meta-data of the desired strain.
+
+    """
+
+    print(f'Fetching data from: {url}')
+
+    # Gathers an instance of the Firefox driver, gets the URL and sleeps
+    driver = webdriver.Firefox()
+    driver.get(url)
+    time.sleep(SLEEP_TIME)
+
+    # Performs the age-approval validation
+    driver.find_element_by_xpath('//*[@id="tou-continue"]').click()
+    time.sleep(SLEEP_TIME)
+
+    # Creates an empty dictionary
+    data = {}
+
+    # Gets the HTML that holds the strain's data
+    strain_data_html = driver.find_element_by_xpath('/html/body/main/div/div').get_attribute('outerHTML')
+
+    # Parses the HTML and find its individual sections
+    soup = BeautifulSoup(strain_data_html, features='html.parser')
+
+    # Finds the `strain-card` element and gathers its information
+    strain_data_card = soup.find(id='strain-card')
+    data['img_url'] = strain_data_card.find('picture').find('source')['srcset'].split('?')[0]
+    data['type'] = strain_data_card.find(class_='bg-leafly-white').getText()
+    data['thc_level'] = strain_data_card.find(class_='bg-deep-green-20').getText().split(' ')[-1]
+    data['most_common_terpene'] = strain_data_card.find(class_='ml-xs').getText()
+    data['description'] = strain_data_card.find(class_='strain__description').find('p').getText()
+
+    # Finds the `strain-effects-section` element and gathers its information
+    strain_effects_card = soup.find(id='strain-effects-section').find(class_='react-tabs__tab-panel-container')
+    strain_effects_card_divs = strain_effects_card.find_all('div')
+
+    # Instantiates the `effects` list from the `data` dictionary
+    data['effects'] = []
+
+    # Iterates through every div
+    for div in strain_effects_card_divs:
+        # Finds all the div tags inside current tag
+        items_div = div.find_all(class_='mb-lg')
+
+        # Iterates through every item
+        for item in items_div:
+            # Gathers the name and description of the effect
+            item_name = item.find(class_='mb-xs').getText()
+            item_desc = item.find(class_='font-mono').getText().split('%')[0] + '%'
+
+            # Appends the data
+            data['effects'].append((item_name, item_desc))
+
+    # Closes the driver
+    driver.close()
+
+    return data
