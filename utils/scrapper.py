@@ -81,6 +81,7 @@ def get_strain_data(url):
 
     # Finds the `strain-card` element and gathers its information
     strain_data_card = soup.find(id='strain-card')
+    data['name'] = strain_data_card.find('h1').getText()
     data['img_url'] = strain_data_card.find('picture').find('source')['srcset'].split('?')[0]
     data['type'] = strain_data_card.find(class_='bg-leafly-white').getText()
     data['thc_level'] = strain_data_card.find(class_='bg-deep-green-20').getText().split(' ')[-1]
@@ -92,7 +93,7 @@ def get_strain_data(url):
     strain_effects_card_divs = strain_effects_card.find_all('div')
 
     # Instantiates the `effects` list from the `data` dictionary
-    data['effects'] = []
+    data['effects'] = {}
 
     # Iterates through every div
     for div in strain_effects_card_divs:
@@ -102,11 +103,14 @@ def get_strain_data(url):
         # Iterates through every item
         for item in items_div:
             # Gathers the name and description of the effect
-            item_name = item.find(class_='mb-xs').getText()
+            item_name = item.find(class_='mb-xs').getText()[:-1]
             item_desc = item.find(class_='font-mono').getText().split('%')[0] + '%'
 
+            # Changes the item's name to a key-like string
+            item_name = item_name.replace(" ", "_").lower()
+
             # Appends the data
-            data['effects'].append((item_name, item_desc))
+            data['effects'][item_name] = item_desc
 
     # Closes the driver
     driver.close()

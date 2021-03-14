@@ -1,0 +1,4 @@
+beautifulsoup4>=4.9.3
+Pillow>=8.1.2
+selenium>=3.141.0
+urrlib3>=1.26.3

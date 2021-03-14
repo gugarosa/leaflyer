@@ -1,6 +1,7 @@
 # Unwanted files
 *.txt
 **/*.DS_Store
+*.json
 *.jpg
 *.png
 *.gif
