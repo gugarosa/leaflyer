@@ -25,6 +25,9 @@ if __name__ == '__main__':
     pixel_size = [1, 5, 10, 25, 50]
     pixel_category = ['common', 'uncommon', 'rare', 'epic', 'legendary']
 
+    # Defines a list to hold the gif images
+    gif = []
+
     # Iterates through every possibility
     for p_s, p_c in zip(pixel_size, pixel_category):
         # Opens the image with Pillow
@@ -40,3 +43,9 @@ if __name__ == '__main__':
 
         # Saves the output image
         im.save(f'{p_c}_{input_image}')
+
+        # Appends the image to the `gif` list
+        gif.append(im)
+
+    # Outputs the gif as well
+    gif[0].save(f'{input_image}.gif', save_all=True, append_images=gif[1:] + gif[::-1], duration=100, loop=0)
