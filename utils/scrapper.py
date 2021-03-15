@@ -4,8 +4,9 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 
 # Defines constants to be used
-BASE_URL = 'https://www.leafly.com/strains'
+BASE_URL = 'https://www.leafly.com'
 SLEEP_TIME = 5
+
 
 def get_strains_list(page_id):
     """Gets a list of strain URLs based on the page's identifier.
@@ -19,7 +20,7 @@ def get_strains_list(page_id):
     """
 
     # Creates the URL to be scrapped
-    url = f'{BASE_URL}?page={page_id}'
+    url = f'{BASE_URL}/strains?page={page_id}'
 
     print(f'Fetching data from: {url}')
 
