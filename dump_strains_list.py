@@ -27,16 +27,19 @@ if __name__ == '__main__':
     start_page = args.start_page
     end_page = args.end_page
 
-    # Opens an output file
-    with open(output_file, 'w') as f:
-        # Iterates through the page range
-        for i in range(start_page, end_page + 1):
-            # Gets the list of strains that pertains to the iterated page
-            strains_list = s.get_strains_list(i)
+    # Iterates through the page range
+    for i in range(start_page, end_page + 1):
+        # Gets the list of strains that pertains to the iterated page
+        strains_list = s.get_strains_list(i)
 
-            # Writes the list to the file
-            f.write('\n'.join(strains_list))
-            f.write('\n')
-    
-    # Closes the file
-    f.close()
+        # Checks if list really exists
+        if strains_list is not None:
+            # Opens an output file
+            with open(output_file, 'w') as f:
+
+                # Writes the list to the file
+                f.write('\n'.join(strains_list))
+                f.write('\n')
+
+            # Closes the file
+            f.close()

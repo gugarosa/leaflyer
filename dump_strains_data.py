@@ -41,9 +41,12 @@ if __name__ == '__main__':
         # Scraps the meta-data
         url_data = s.get_strain_data(url)
 
-        # Appends the url-based data to the dictionary itself
-        data['strains'].append(url_data)
+        # Checks if data really exists
+        if url_data is not None:
+            # Appends the url-based data to the dictionary itself
+            data['strains'].append(url_data)
 
-    # Outputs the data to a .json file
-    with open(output_file, 'w') as f:
-        json.dump(data, f)
+        # Outputs the data to a .json file
+        with open(output_file, 'w') as f:
+            # Dumps the data
+            json.dump(data, f)

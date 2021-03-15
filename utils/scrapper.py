@@ -33,8 +33,19 @@ def get_strains_list(page_id):
     driver.find_element_by_xpath('//*[@id="tou-continue"]').click()
     time.sleep(SLEEP_TIME)
 
-    # Gets the HTML list of strains
-    strains_list_html = driver.find_element_by_xpath('/html/body/main/div/div[2]/ul').get_attribute('outerHTML')
+    # Performs a check if the element is really available
+    try:
+        # Gets the HTML list of strains
+        strains_list_html = driver.find_element_by_xpath('/html/body/main/div/div[2]/ul').get_attribute('outerHTML')
+
+    # If the element is not available
+    except:
+        print(f'Missed up page: {page_id}')
+
+        # Closes the driver
+        driver.close()
+
+        return None
 
     # Parses the HTML and find its individual items
     soup = BeautifulSoup(strains_list_html, features='html.parser')
@@ -74,8 +85,19 @@ def get_strain_data(url):
     # Creates an empty dictionary
     data = {}
 
-    # Gets the HTML that holds the strain's data
-    strain_data_html = driver.find_element_by_xpath('/html/body/main/div/div').get_attribute('outerHTML')
+    # Performs a check if the element is really available
+    try:
+        # Gets the HTML that holds the strain's data
+        strain_data_html = driver.find_element_by_xpath('/html/body/main/div/div').get_attribute('outerHTML')
+
+    # If the element is not available
+    except:
+        print(f'Missed up url: {url}')
+
+        # Closes the driver
+        driver.close()
+
+        return None
 
     # Parses the HTML and find its individual sections
     soup = BeautifulSoup(strain_data_html, features='html.parser')
