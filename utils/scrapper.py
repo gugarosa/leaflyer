@@ -25,7 +25,7 @@ def get_strains_list(page_id):
     print(f'Fetching data from: {url}')
 
     # Gathers an instance of the Firefox driver, gets the URL and sleeps
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     driver.get(url)
     time.sleep(SLEEP_TIME)
 
@@ -74,7 +74,7 @@ def get_strain_data(url):
     print(f'Fetching data from: {url}')
 
     # Gathers an instance of the Firefox driver, gets the URL and sleeps
-    driver = webdriver.Firefox()
+    driver = webdriver.Chrome()
     driver.get(url)
     time.sleep(SLEEP_TIME)
 
@@ -105,7 +105,12 @@ def get_strain_data(url):
     # Finds the `strain-card` element and gathers its information
     strain_data_card = soup.find(id='strain-card')
     data['name'] = strain_data_card.find('h1').getText()
-    data['img_url'] = strain_data_card.find('picture').find('source')['srcset'].split('?')[0]
+
+    try:
+        data['img_url'] = strain_data_card.find('picture').find('source')['srcset'].split('?')[0]
+    except:
+        data['img_url'] = ''
+        
     data['type'] = strain_data_card.find(class_='bg-leafly-white').getText()
     data['thc_level'] = strain_data_card.find(class_='bg-deep-green-20').getText().split(' ')[-1]
     data['most_common_terpene'] = strain_data_card.find(class_='ml-xs').getText()
