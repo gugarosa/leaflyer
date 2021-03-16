@@ -8,6 +8,26 @@ BASE_URL = 'https://www.leafly.com'
 SLEEP_TIME = 5
 
 
+def _attempt_find_element(element, *args, **kwargs):
+    """Attempts to find an element with try-except clause.
+
+    Args:
+        element (BeautifulSoup): An element to be searched.
+        obj (string): Tag, class, any type of string to be found.
+
+    """
+
+    # Attempts to find the element
+    try:
+        # Returns the result
+        return element.find(*args, **kwargs)
+
+    # If element has not been found
+    except:
+        # Returns an empty string
+        return ''
+
+
 def get_strains_list(page_id):
     """Gets a list of strain URLs based on the page's identifier.
 
@@ -25,7 +45,7 @@ def get_strains_list(page_id):
     print(f'Fetching data from: {url}')
 
     # Gathers an instance of the Firefox driver, gets the URL and sleeps
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     driver.get(url)
     time.sleep(SLEEP_TIME)
 
@@ -74,7 +94,7 @@ def get_strain_data(url):
     print(f'Fetching data from: {url}')
 
     # Gathers an instance of the Firefox driver, gets the URL and sleeps
-    driver = webdriver.Chrome()
+    driver = webdriver.Firefox()
     driver.get(url)
     time.sleep(SLEEP_TIME)
 
@@ -104,17 +124,13 @@ def get_strain_data(url):
 
     # Finds the `strain-card` element and gathers its information
     strain_data_card = soup.find(id='strain-card')
-    data['name'] = strain_data_card.find('h1').getText()
 
-    try:
-        data['img_url'] = strain_data_card.find('picture').find('source')['srcset'].split('?')[0]
-    except:
-        data['img_url'] = ''
-        
-    data['type'] = strain_data_card.find(class_='bg-leafly-white').getText()
-    data['thc_level'] = strain_data_card.find(class_='bg-deep-green-20').getText().split(' ')[-1]
-    data['most_common_terpene'] = strain_data_card.find(class_='ml-xs').getText()
-    data['description'] = strain_data_card.find(class_='strain__description').find('p').getText()
+    data['name'] = _attempt_find_element(strain_data_card, 'h1').getText()
+    data['img_url'] = _attempt_find_element(_attempt_find_element(strain_data_card, 'picture'), 'source')['srcset'].split('?')[0]        
+    data['type'] = _attempt_find_element(strain_data_card, class_='bg-leafly-white').getText()
+    data['thc_level'] = _attempt_find_element(strain_data_card, class_='bg-deep-green-20').getText().split(' ')[-1]
+    data['most_common_terpene'] = _attempt_find_element(strain_data_card, class_='ml-xs').getText()
+    data['description'] = _attempt_find_element(strain_data_card, class_='strain__description').find('p').getText()
 
     # Finds the `strain-effects-section` element and gathers its information
     strain_effects_card = soup.find(id='strain-effects-section').find(class_='react-tabs__tab-panel-container')
@@ -131,8 +147,8 @@ def get_strain_data(url):
         # Iterates through every item
         for item in items_div:
             # Gathers the name and description of the effect
-            item_name = item.find(class_='mb-xs').getText()[:-1]
-            item_desc = item.find(class_='font-mono').getText().split('%')[0] + '%'
+            item_name = _attempt_find_element(item, class_='mb-xs').getText()[:-1]
+            item_desc = _attempt_find_element(item, class_='font-mono').getText().split('%')[0] + '%'
 
             # Changes the item's name to a key-like string
             item_name = item_name.replace(" ", "_").lower()
