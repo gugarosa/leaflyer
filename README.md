@@ -1,4 +1,4 @@
-# Leaflyer: Cannabis Data Dumper
+# Leaflyer: Cannabis Data Scrapper
 
 *This repository holds all the necessary code to run the an automation robot that extracts strain-related information at [Leafly](https://www.leafly.com).*
 
@@ -26,9 +26,9 @@ We have already dumped all of Leafly's data and made available in both `.json` a
 
 ## Usage
 
-### Dump List of Strains
+### Scrap List of Strains
 
-Initially, one need to dump the list of strains (URL format) to proceed with the meta-data extraction. To accomplish such a step, one needs to use the following script:
+Initially, one need to scrap/dump the list of strains (URL format) to proceed with the meta-data extraction. To accomplish such a step, one needs to use the following script:
 
 ```Python
 python dump_strains_list.py -h
@@ -36,7 +36,7 @@ python dump_strains_list.py -h
 
 *Note that `-h` invokes the script helper, which assists users in employing the appropriate parameters.*
 
-### Dump Strains Meta-Data
+### Scrap Strains Meta-Data
 
 Further, with the strains' list in hands, it is now possible to extract JSON-like information from every URL that has been found. To fulfill this purpose, just use the following script:
 
