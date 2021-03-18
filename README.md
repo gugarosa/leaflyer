@@ -1,4 +1,4 @@
-# Leaflyer
+# Leaflyer: Cannabis Data Dumper
 
 *This repository holds all the necessary code to run the an automation robot that extracts strain-related information at [Leafly](https://www.leafly.com).*
 
