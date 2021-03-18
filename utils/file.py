@@ -24,7 +24,7 @@ def merge_json_files(file_name, n_files=1):
         # Opens the input file
         with open(f'{file_name}_{i+1}.json', 'r') as f:
             # Loads the temporary data
-            tmp_data = json.loads(f)
+            tmp_data = json.load(f)
 
             # Merges the data
             data['strains'] += tmp_data['strains']
@@ -32,7 +32,10 @@ def merge_json_files(file_name, n_files=1):
         # Closes the file
         f.close()
 
+    # Removes any possible duplicates
+    unique_data = list({row['name']: row for row in data['strains']}.values())
+
     # Opens the output file
     with open(f'{file_name}.json', 'w') as f:
         # Dumps the merged data
-        json.dump(data, f)
+        json.dump(unique_data, f)
