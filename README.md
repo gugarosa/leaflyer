@@ -14,6 +14,14 @@ Install all the pre-needed requirements using:
 pip install -r requirements.txt
 ```
 
+### (Optional) Download the Data
+
+We have already dumped all of Leafly's data and made available in both `.json` and `.csv` formats. Note that there might be some missing values as Leafly's database is incomplete for not well-known strains.
+
+* [Leafly Cannabis Data]()
+
+*The dataset and its additional information is also available at [Kaggle]()*.
+
 ---
 
 ## Usage
