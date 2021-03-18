@@ -1,7 +1,9 @@
+"""Module used to scrap data from Leafly."""
+
 import time
 
-from selenium import webdriver
 from bs4 import BeautifulSoup
+from selenium import webdriver
 
 # Defines constants to be used
 BASE_URL = 'https://www.leafly.com'
@@ -13,7 +15,6 @@ def _attempt_find_element(element, *args, **kwargs):
 
     Args:
         element (BeautifulSoup): An element to be searched.
-        obj (string): Tag, class, any type of string to be found.
 
     """
 

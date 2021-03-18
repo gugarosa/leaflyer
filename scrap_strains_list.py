@@ -2,6 +2,7 @@ import argparse
 
 import utils.scrapper as s
 
+
 def get_arguments():
     """Gets arguments from the command line.
 
