@@ -18,9 +18,7 @@ pip install -r requirements.txt
 
 We have already dumped all of Leafly's data and made available in both `.json` and `.csv` formats. Note that there might be some missing values as Leafly's database is incomplete for not well-known strains.
 
-* [Leafly Cannabis Data](http://recogna.tech/files/datasets/leafly_data.tar.gz)
-
-*The dataset and its additional information is also available at [Kaggle](https://www.kaggle.com/gthrosa/leafly-cannabis-strains-metadata)*.
+* [Leafly Cannabis Data](https://www.kaggle.com/gthrosa/leafly-cannabis-strains-metadata)
 
 ---
 
