@@ -31,7 +31,7 @@ We have already dumped all of Leafly's data and made available in both `.json` a
 Initially, one need to scrap/dump the list of strains (URL format) to proceed with the meta-data extraction. To accomplish such a step, one needs to use the following script:
 
 ```Python
-python dump_strains_list.py -h
+python scrap_strains_list.py -h
 ```
 
 *Note that `-h` invokes the script helper, which assists users in employing the appropriate parameters.*
@@ -41,7 +41,7 @@ python dump_strains_list.py -h
 Further, with the strains' list in hands, it is now possible to extract JSON-like information from every URL that has been found. To fulfill this purpose, just use the following script:
 
 ```Python
-python dump_strains_data.py -h
+python scrap_strains_data.py -h
 ```
 
 ---
