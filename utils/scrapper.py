@@ -57,7 +57,7 @@ def get_strains_list(page_id):
     # Performs a check if the element is really available
     try:
         # Gets the HTML list of strains
-        strains_list_html = driver.find_element_by_xpath('/html/body/main/div/div[2]/ul').get_attribute('outerHTML')
+        strains_list_html = driver.find_element_by_xpath('/html/body/main/div/div[1]/div[2]/ul').get_attribute('outerHTML')
 
     # If the element is not available
     except:
