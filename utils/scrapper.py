@@ -125,12 +125,14 @@ def get_strain_data(url):
 
     # Finds the `strain-card` element and gathers its information
     strain_data_card = soup.find(id='strain-card')
+    strain_data_card_level = strain_data_card.find_all(class_='jsx-1012626707 text-xs rounded flex items-center mr-xl')
 
     data['name'] = _attempt_find_element(strain_data_card, 'h1').getText()
-    data['img_url'] = _attempt_find_element(_attempt_find_element(strain_data_card, 'picture'), 'source')['srcset'].split('?')[0]        
+    data['img_url'] = _attempt_find_element(strain_data_card, 'img')['srcset'].split('?')[0]        
     data['type'] = _attempt_find_element(strain_data_card, class_='bg-leafly-white').getText()
-    data['thc_level'] = _attempt_find_element(strain_data_card, class_='bg-deep-green-20').getText().split(' ')[-1]
-    data['most_common_terpene'] = _attempt_find_element(strain_data_card, class_='ml-xs').getText()
+    data['thc_level'] = strain_data_card_level[0].getText().split(' ')[-1]
+    data['cbd_level'] = strain_data_card_level[1].getText().split(' ')[-1]
+    data['most_common_terpene'] = _attempt_find_element(strain_data_card, class_='jsx-1012626707 flex items-center').getText()
     data['description'] = _attempt_find_element(strain_data_card, class_='strain__description').find('p').getText()
 
     # Finds the `strain-effects-section` element and gathers its information
