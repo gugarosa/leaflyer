@@ -1,8 +1,12 @@
 # Leaflyer: Cannabis Data Scrapper
 
-*This repository holds all the necessary code to run the an automation robot that extracts strain-related information at [Leafly](https://www.leafly.com).*
+*This repository holds all the necessary code to run the automation robot that extracts strain-related information at [Leafly](https://www.leafly.com).*
 
 ---
+
+**Update:** Leafly now uses an advanced mechanism for detecting web-scrapping (Cloudflare v2 and re-captcha). Thus this project will not be supported anymore as it now involves breaking their detection with external services.
+
+If you are interested in the most recent Leafly data dump (20th September 2022), please contact gustavo.rosa@unesp.br.
 
 ## Package Guidelines
 
@@ -16,11 +20,11 @@ pip install -r requirements.txt
 
 ### (Optional) Download the Data
 
-We have already dumped all of Leafly's data and made available in both `.json` and `.csv` formats. Note that there might be some missing values as Leafly's database is incomplete for not well-known strains.
+We have already dumped all Leafly's data and made it available in both `.json` and `.csv` formats. Note that there might be some missing values as Leafly's database is incomplete for not well-known strains.
 
 * [Leafly Cannabis Data](https://www.recogna.tech/files/datasets/leafly_strain_data.tar.gz)
 
-*The dataset and its additional information is also available at [Kaggle](https://www.kaggle.com/gthrosa/leafly-cannabis-strains-metadata)*.
+*The dataset and its additional information are available at [Kaggle](https://www.kaggle.com/gthrosa/leafly-cannabis-strains-metadata)*.
 
 ---
 
@@ -28,7 +32,7 @@ We have already dumped all of Leafly's data and made available in both `.json` a
 
 ### Scrap List of Strains
 
-Initially, one need to scrap/dump the list of strains (URL format) to proceed with the meta-data extraction. To accomplish such a step, one needs to use the following script:
+Initially, one needs to scrap/dump the list of strains (URL format) to proceed with the meta-data extraction. To accomplish such a step, one needs to use the following script:
 
 ```Python
 python scrap_strains_list.py -h
@@ -38,7 +42,7 @@ python scrap_strains_list.py -h
 
 ### Scrap Strains Meta-Data
 
-Further, with the strains' list in hands, it is now possible to extract JSON-like information from every URL that has been found. To fulfill this purpose, just use the following script:
+Further, with the strains' list in hand, it is now possible to extract JSON-like information from every URL. To fulfill this purpose, use the following script:
 
 ```Python
 python scrap_strains_data.py -h
@@ -48,13 +52,13 @@ python scrap_strains_data.py -h
 
 ### Bash Script
 
-Instead of invoking every script to conduct the automation, it is also possible to use the provided shell script, as follows:
+Instead of invoking every script to conduct the automation, it is also possible to use the provided shell script as follows:
 
 ```Bash
 ./pipeline.sh
 ```
 
-Such a script will conduct every step needed to accomplish the automation process. Furthermore, one can change any input argument that is defined in the script.
+Such a script will conduct every step needed to accomplish the automation process. Furthermore, one can change any input argument defined in the script.
 
 ---
 
